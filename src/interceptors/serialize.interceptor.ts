@@ -14,7 +14,6 @@ class SerializeInterceptor implements NestInterceptor {
     constructor(private dto: ClassConstructor) { }
 
     intercept(context: ExecutionContext, handler: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
-        console.log("context is ", context, "and handler is", handler);
         return handler.handle()
             .pipe(
                 map((data: any) => {
