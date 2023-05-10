@@ -1,9 +1,18 @@
-### Create a new user
+### Signup
 POST http://localhost:3000/auth/signup
 content-Type: application/json
 
 {
-    "email":"as1@gmail.com",
+    "email":"as3@gmail.com",
+    "password":"a"
+} 
+
+### Signin
+POST http://localhost:3000/auth/signin
+content-Type: application/json
+
+{
+    "email":"as3@gmail.com",
     "password":"a"
 } 
 
