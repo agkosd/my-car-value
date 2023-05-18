@@ -11,6 +11,11 @@ import { AuthService } from './auth.service';
 export class UsersController {
     constructor(private usersService: UsersService, private authService: AuthService) { }
 
+    @Get('/whoami')
+    async whoAmI(@Session() session: any) {
+        return this.usersService.findOne(session.userId)
+    }
+
     @Post('/signup')
     async signUp(@Body() { email, password }: CreateUserDto, @Session() session: any) {
         const user = await this.authService.signUp(email, password);
