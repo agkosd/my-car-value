@@ -15,8 +15,8 @@ export class AuthService {
             throw new BadRequestException('Email already in use. Please use a different email id')
         }
         const salt = randomBytes(8).toString('hex');
-        const hash = (await scrypt(password, salt, 32));
-        const result = salt + '.' + hash;
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+        const result = salt + '.' + hash.toString('hex');
 
         return await this.usersService.create(email, result);
     }
@@ -28,8 +28,9 @@ export class AuthService {
         }
 
         const [salt, storedHash] = user.password.split('.');
-        const hash = (await scrypt(password, salt, 32)) as Buffer;
 
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+        console.log(salt, storedHash, hash);
         if (storedHash !== hash.toString('hex')) {
             throw new BadRequestException('Wrong Password')
         }
